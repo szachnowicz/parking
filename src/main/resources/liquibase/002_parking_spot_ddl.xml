@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+
+    <changeSet author="szachnowicz" id="parking spot dll">
+        <createTable tableName="parking_spot">
+            <column name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="uuid" type="VARCHAR(36)" defaultValueComputed="random_uuid()"/>
+            <column name="spot_number" type="VARCHAR(5)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <insert tableName="parking_spot">
+            <column name="id">1000</column>
+            <column name="spot_number">A1</column>
+        </insert>
+        <insert tableName="parking_spot">
+            <column name="id">1002</column>
+            <column name="spot_number">A2</column>
+        </insert>
+        <insert tableName="parking_spot">
+            <column name="id">1003</column>
+            <column name="spot_number">A3</column>
+        </insert>
+        <insert tableName="parking_spot">
+            <column name="id">1004</column>
+            <column name="spot_number">A4</column>
+        </insert>
+        <insert tableName="parking_spot">
+            <column name="id">1005</column>
+            <column name="spot_number">A5</column>
+        </insert>
+        <insert tableName="parking_spot">
+            <column name="id">1006</column>
+            <column name="spot_number">A6</column>
+        </insert>
+        <insert tableName="parking_spot">
+            <column name="id">1007</column>
+            <column name="spot_number">A7</column>
+        </insert>
+        <insert tableName="parking_spot">
+            <column name="id">1008</column>
+            <column name="spot_number">A8</column>
+        </insert>
+        <insert tableName="parking_spot">
+            <column name="id">1009</column>
+            <column name="spot_number">A9</column>
+        </insert>
+        <insert tableName="parking_spot">
+            <column name="id">1010</column>
+            <column name="spot_number">A10</column>
+        </insert>
+        <insert tableName="parking_spot">
+            <column name="id">2000</column>
+            <column name="spot_number">B1</column>
+        </insert>
+        <insert tableName="parking_spot">
+            <column name="id">2002</column>
+            <column name="spot_number">B2</column>
+        </insert>
+        <insert tableName="parking_spot">
+            <column name="id">2003</column>
+            <column name="spot_number">B3</column>
+        </insert>
+        <insert tableName="parking_spot">
+            <column name="id">2004</column>
+            <column name="spot_number">B4</column>
+        </insert>
+        <insert tableName="parking_spot">
+            <column name="id">2005</column>
+            <column name="spot_number">B5</column>
+        </insert>
+        <insert tableName="parking_spot">
+            <column name="id">2006</column>
+            <column name="spot_number">B6</column>
+        </insert>
+        <insert tableName="parking_spot">
+            <column name="id">2007</column>
+            <column name="spot_number">B7</column>
+        </insert>
+        <insert tableName="parking_spot">
+            <column name="id">2008</column>
+            <column name="spot_number">B8</column>
+        </insert>
+        <insert tableName="parking_spot">
+            <column name="id">2009</column>
+            <column name="spot_number">B9</column>
+        </insert>
+        <insert tableName="parking_spot">
+            <column name="id">2010</column>
+            <column name="spot_number">B10</column>
+        </insert>
+        
+    </changeSet>
+</databaseChangeLog>

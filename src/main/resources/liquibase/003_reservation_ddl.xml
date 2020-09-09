@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+
+    <changeSet author="szachnowicz" id="reservation dll">
+        <createTable tableName="reservation">
+            <column name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="uuid" type="VARCHAR(36)" defaultValueComputed="random_uuid()"/>
+            <!---->
+            <column name="car_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_reservation_car" references="car(id)"/>
+            </column>
+            <column name="parking_spot_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_reservation_parking" references="parking_spot(id)"/>
+            </column>
+            <column name="creation_date" type="TIMESTAMP"/>
+            <column name="valid_from" type="TIMESTAMP"/>
+            <column name="valid_to" type="TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
