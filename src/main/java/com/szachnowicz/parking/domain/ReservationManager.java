@@ -23,8 +23,6 @@ public class ReservationManager {
 
     public ReservationDto reserveParkingSpot(ReservationRequest reservationRequest) {
         CarDto carDto = carManager.getCar(reservationRequest.getRegistrationNumber());
-
-
         String parkingSpot = parkingSpotRepository.getParkingSpot(reservationRequest.getSpotNumber()).orElseThrow(() ->
                 new BusinessException("PARKING SPOT NOT EXIST"));
 
@@ -36,7 +34,6 @@ public class ReservationManager {
                         .validTo(TimeUtils.parseDate(reservationRequest.getValidTo()))
                         .build();
 
-
         validateIfSpotOccupied(reservationDto);
         validateDates(reservationDto);
 
@@ -46,18 +43,17 @@ public class ReservationManager {
 
     private void validateDates(ReservationDto reservationRequest) {
         if (reservationRequest.getValidTo().isBefore(reservationRequest.getValidFrom())) {
-            throw new BusinessException("INCORRECT_DATES", " Valid to is before Valid form");
+            throw new BusinessException("INCORRECT DATES", " Valid to is before Valid form");
         }
-
-
-
+        if (reservationRequest.getValidFrom().isBefore(LocalDateTime.now()) ||
+                reservationRequest.getValidFrom().isBefore(LocalDateTime.now())) {
+            throw new BusinessException("INCORRECT DATES", "Reservation date cannot be from past.");
+        }
     }
 
 
     public List<ReservationDto> getAllReservationBySpotNumber(String spotNumber) {
-        parkingSpotRepository.getParkingSpot(spotNumber).orElseThrow(() ->
-                new BusinessException("PARKING SPOT NOT EXIST"));
-
+        parkingSpotRepository.getParkingSpot(spotNumber).orElseThrow(() -> new BusinessException("PARKING SPOT NOT EXIST"));
         return reservationRepository.getAllReservationBySpotNumber(spotNumber);
     }
 
@@ -67,17 +63,16 @@ public class ReservationManager {
         LocalDateTime newFrom = reservationDto.getValidFrom();
         LocalDateTime newTo = reservationDto.getValidTo();
         // throw when duplicated
-        allReservationBySpotNumber.stream().filter(out-> out.getValidFrom().isEqual(newFrom) && out.getValidTo().isEqual(newTo))// only began on the same dayas a comapred
+        allReservationBySpotNumber.stream()
+                .filter(out-> out.getValidFrom().isEqual(newFrom) && out.getValidTo().isEqual(newTo))// only began on the same dayas a comapred
                 .anyMatch(old -> {
-                    throw new BusinessException("PARKING SPOT OCCUPIED", "Parking spot occupied between given dates");
-                });
+                    throw new BusinessException("PARKING SPOT OCCUPIED", "Parking spot occupied between given dates"); });
 
         allReservationBySpotNumber.stream()
                 .filter(res -> res.getValidFrom().getDayOfYear() == reservationDto.getValidFrom().getDayOfYear())
                 .filter(out->newFrom.isAfter(out.getValidFrom()) && newFrom.isBefore(out.getValidTo()) ||
-                        newFrom.isBefore(out.getValidFrom()) && newTo.isAfter(out.getValidFrom()) && newTo.isBefore(out.getValidTo()))// only began on the same dayas a comapred
+                        newFrom.isBefore(out.getValidFrom()) && newTo.isAfter(out.getValidFrom()) && newTo.isBefore(out.getValidTo()))
                 .anyMatch(old -> {
-                    throw new BusinessException("PARKING SPOT OCCUPIED", "Parking spot occupied between given dates");
-                });
+                    throw new BusinessException("PARKING SPOT OCCUPIED", "Parking spot occupied between given dates"); });
     }
 }
